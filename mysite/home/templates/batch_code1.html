@@ -1,0 +1,274 @@
+{% extends '__base__.html' %}
+{% block content %}
+<script src="https://cdn.staticfile.org/jsbarcode/3.9.0/JsBarcode.all.min.js"></script>
+<script src="https://cdn.staticfile.org/rangeslider.js/2.3.0/rangeslider.min.js"></script>
+<!-- <script src="https://static.gaitubao.net/js/barcode16.js"></script> 注意不支持：Firefox   -->
+<script src="/static/prettify/js/barcode16.js"></script>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--[if IE 8]>
+<script src="https://cdn.staticfile.org/ie8/0.8.1/ie8.js"></script>
+<![endif]-->
+<style>
+	h4{
+		line-height: 1em
+	}
+	#barcode {
+		display: inline-block;
+		box-shadow: #AAA 1px 1px 3px
+	}
+	.bulk{
+		display: none
+	}
+		.rangeslider,
+	.rangeslider__fill {
+		background: #e6e6e6;
+		display: block;
+		height: 10px;
+		width: 100%;
+		-webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		-moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-ms-border-radius: 5px;
+		-o-border-radius: 5px;
+		border-radius: 5px;
+	}
+	
+	.rangeslider {
+		position: relative;
+		margin-bottom: 20px;
+	}
+	
+	.rangeslider--disabled {
+		filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=40);
+		opacity: 0.4;
+	}
+	
+	.rangeslider__fill {
+		background: #3BB2D6;
+		position: absolute;
+		top: 0;
+	}
+	
+	.rangeslider__handle {
+		background: white;
+		border: 1px solid #ccc;
+		cursor: pointer;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: -5px;
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+		background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: -o-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-o-border-radius: 50%;
+		border-radius: 50%;
+	}
+	
+	.rangeslider__handle:after {
+		content: "";
+		display: block;
+		width: 9px;
+		height: 9px;
+		margin: auto;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.13)), color-stop(100%, rgba(255, 255, 255, 0)));
+		background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: -o-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-o-border-radius: 50%;
+		border-radius: 50%;
+	}
+	
+	.rangeslider__handle:active {
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.12)));
+		background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: -o-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+	}
+	
+	input[type="range"]:focus+ .rangeslider .rangeslider__handle {
+		-webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+		-moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+		box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+	}
+</style>
+
+<div class="container">   
+	<div class="col-md-12">				
+        <h2>批量生成条形码</h2>
+		<!-- <div class="col-md-6">
+			<h4>批量生成条形码工具</h4>
+			<textarea id="userInput" class="form-control" data-default="1234567890ABC" style="height:12em">1234567890ABC</textarea>
+		</div> -->
+		<div class="ad" style="margin:.5em auto 1.5em">﻿ </div>
+		<div class="col-xs-12" style="min-height:22em">
+			<canvas id="barcode"></canvas>
+			<p id="invalid" class="text-danger">条码数据与所选编码不符合!</p>
+			<p class="btn-bar"><a id="download" class="btn btn-default" href="#" download="barcode.png"><i class="fa fa-download"></i> 下载条码图片</a>
+			</p>
+			
+		</div>
+								
+		<div class="col-md-6">
+		    <h4>预览第一个条形码</h4>
+			<canvas id="barcode"></canvas>
+			<p id="invalid" class="text-danger">条码数据与所选编码不符合!</p>
+			<p class="btn-bar">
+			</p>
+			
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<hr/>
+		<div class="row">
+			<div class="col-md-6">
+				<div id="barcode-options">
+					<div class="row">
+						<div class="col-md-2 col-xs-12">
+							<p>编码</p>
+					    </div>
+						<div class="col-md-8 col-xs-10">
+							<select id="format" class="form-control">
+								<option value="CODE128" selected>CODE128 自动</option>
+								<option value="CODE128A">CODE128 A</option>
+								<option value="CODE128B">CODE128 B</option>
+								<option value="CODE128C">CODE128 C</option>
+								<option value="EAN13">EAN13 商品条码</option>
+								<option value="EAN8">EAN8 商品条码</option>
+								<option value="UPC">UPC</option>
+								<option value="CODE39">CODE39</option>
+								<option value="ITF14">ITF14</option>
+								<option value="ITF">ITF</option>
+								<option value="MSI">MSI</option>
+								<option value="MSI10">MSI10</option>
+								<option value="MSI11">MSI11</option>
+								<option value="MSI1010">MSI1010</option>
+								<option value="MSI1110">MSI1110</option>
+								<option value="pharmacode">Pharmacode</option>
+							</select>
+						</div>
+						<div class="col-md-2 col-xs-2"><a href="/help/1527.html" title="帮助" target="_blank"><i class="fa fa-question-circle"></i></a></div>
+					</div>
+					<hr/>
+					<div class="row option">
+						<div class="col-md-2 col-xs-12">
+							<p>高度</p>
+						</div>
+						<div class="col-md-8 col-xs-10">
+						 	<input id="bar-height" type="range" min="10" max="150" step="5" value="80"/>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<span id="bar-height-display" class="text-muted"></span>
+						</div>
+					</div>
+
+					<div class="row option">
+						<div class="col-md-2 col-xs-12">
+							<p>间隔</p>
+						</div>
+						<div class="col-md-8 col-xs-10 ">
+							<input id="bar-width" type="range" min="1" max="4" step="1" value="2"/>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<span id="bar-width-display" class="text-muted"></span>
+						</div>
+					</div>
+					<div class="row option">
+						<div class="col-md-2 col-xs-12">
+							<p>边框</p>
+						</div>
+						<div class="col-md-8 col-xs-10 ">
+							<input id="bar-margin" type="range" min="0" max="25" step="1" value="10"/>
+						</div>
+						<div class="col-md-2 col-xs-2">
+							<span id="bar-margin-display" class="text-muted"></span>
+						</div>
+					</div>
+					<div class="row option">
+						<div class="col-md-2 col-xs-12">
+							<p>字号</p>
+						</div>
+					<div class="col-md-8 col-xs-10 ">
+						<input id="bar-fontSize" type="range" min="8" max="36" step="1" value="20"/>
+					</div>
+					<div class="col-md-2 col-xs-2">
+						<span id="bar-fontSize-display" class="text-muted"></span>
+					</div>
+				</div>
+				<div class="row option">
+					<div class="col-md-2 col-xs-12"></div>
+					<div class="col-md-5 col-xs-6 text-left">
+						<input type="checkbox" class="display-value" checked> 显示数据
+					</div>
+					<div class="col-md-5 col-xs-6 text-left">
+						<input type="checkbox" id="text-top"> 数据居上
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="text-left" id="tips">
+				<p>每次最多可生成100个条形码</p>
+				<p>收费标准为每个条形码0.01元（1个点可生成1个）</p>
+				<p>可下载为PNG图片压缩包、PDF、Excel等格式</p>
+				<p>如有意见和问题，欢迎<a href="#" target="_blank">给我们留言</a></p>
+			</div>
+			<button id="submit" class="btn btn-block btn-success">开始生成条形码</button>
+		</div>
+	</div>
+</div>
+					</div>
+	<div class="col-md-6 col-md-offset-3" id="monitor" style="display: none">
+		<div id="monitor-body">
+			<div id="loading">
+				<p><i class="fa fa-spinner fa-spin fa-fw text-primary" style="font-size: 64px;"></i></p>
+				<br/>
+				<p class="text-muted">服务器正在为你生成条形码,请稍等片刻...</p></div>
+			<div id="fail" style="display: none">
+				<p><i class="fa fa-times-circle text-danger" style="font-size: 64px"></i></p>
+				<br/>
+				<p class="msg" style="font-size: 16px"></p>
+			</div>
+			<div id="success" style="display: none">
+				<p><i class="fa fa-check-circle text-success" style="font-size: 64px"></i>
+				</p>
+				<p class="msg text-muted"></p>
+				<br/>
+				<p id="downloads"><a class="pdf" href="#"><i class="fa fa-file-pdf-o"></i> PDF</a><a class="zip" href="#"><i class="fa fa-file-archive-o"></i> 压缩包</a><a class="web" href="#" target="_blank"><i class="fa fa-internet-explorer"></i> 网页</a><a class="excel" href="#"><i class="fa fa-file-excel-o"></i> Excel</a>
+				</p>
+				<br/>
+				<p><a class="btn btn-block btn-info" href="/barcode">继续生成条形码</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+			</div>
+		</div>
+	</div>
+ 
+{% endblock %}

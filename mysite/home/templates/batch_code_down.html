@@ -1,0 +1,52 @@
+{% extends '__base__.html' %}
+{% block content %}
+<script src="https://cdn.staticfile.org/jsbarcode/3.9.0/JsBarcode.all.min.js"></script>
+<script src="https://cdn.staticfile.org/rangeslider.js/2.3.0/rangeslider.min.js"></script>
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<!-- <script src="https://static.gaitubao.net/js/barcode16.js"></script> 注意不支持：Firefox   -->
+<script src="/static/prettify/js/barcode16.js"></script>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--[if IE 8]>
+<script src="https://cdn.staticfile.org/ie8/0.8.1/ie8.js"></script>
+<![endif]-->
+
+<div class="container">
+	<div class="col-md-6 col-md-offset-3" id="monitor" style="">
+						<div id="monitor-body ">
+							<div id="loading" style="display: none;">
+								<p><i class="fa fa-spinner fa-spin fa-fw text-primary" style="font-size: 64px;"></i>
+								</p>
+								<br>
+								<p class="text-muted">服务器正在为你生成条形码,请稍等片刻...</p>
+							</div>
+							<div id="fail" style="display: none">
+								<p><i class="fa fa-times-circle text-danger" style="font-size: 64px"></i>
+								</p>
+								<br>
+								<p class="msg" style="font-size: 16px"></p>
+							</div>
+							<div id="success" class="row text-center">
+								<p><i class="fa fa-check-circle text-success" style="font-size: 64px"></i>
+								</p>
+								<p class="msg text-muted">成功为你生成{{createNum}}个条形码,<br>文件在服务器只保留十分钟，请及时下载保存</p>
+								<br>
+								<!-- <p id="downloads"><a class="excel" href="/static/xls/pic.xlsx"><i class="fa fa-file-excel-o"></i> Excel</a>
+								</p> -->
+
+								<p id="downloads"><a class="excel" href="/downLoadFile/?nowtime={{nowtime}}"><i class="fa fa-download "></i> Excel</a>
+								</p>
+
+								<br>
+								<p><a class="btn btn-block btn-info" href="/batch_code/">继续生成条形码</a>
+								</p>
+							</div>
+						</div>
+					</div>
+</div>
+
+{% endblock %}

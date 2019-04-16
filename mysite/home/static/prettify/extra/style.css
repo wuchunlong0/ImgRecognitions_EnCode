@@ -1,0 +1,26 @@
+myul, myli {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "\0020"; 
+    display: block; 
+    height: 0; 
+    overflow: hidden;
+}
+
+.clearfix:after { clear: both; }
+
+.clearfix { zoom: 1; }
+
+.mycontent {margin-top:80px;  margin-left:80px;  width:550px; padding:15px; border:1px solid #ccc; border-radius:5px; list-style-type:none;}
+	
+input.slideControl {width:45px; font-size:1.5em; padding:3px 5px; border:1px solid #ccc; border-radius:5px; text-align:center; color:#333; font-weight:bold;}
+	
+label {font-size:1em; font-weight:bold; float:left; width:80px; margin-top:10px;}
+

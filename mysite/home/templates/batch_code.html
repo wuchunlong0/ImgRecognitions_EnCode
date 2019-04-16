@@ -1,0 +1,203 @@
+{% extends '__base__.html' %}
+{% block content %}
+<script src="https://cdn.staticfile.org/jsbarcode/3.9.0/JsBarcode.all.min.js"></script>
+<script src="https://cdn.staticfile.org/rangeslider.js/2.3.0/rangeslider.min.js"></script>
+<!-- <script src="https://static.gaitubao.net/js/barcode16.js"></script> 注意不支持：Firefox   -->
+<script src="/static/prettify/js/barcode16.js"></script>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--[if IE 8]>
+<script src="https://cdn.staticfile.org/ie8/0.8.1/ie8.js"></script>
+<![endif]-->
+<style>
+	h4{
+		line-height: 1em
+	}
+	#barcode {
+		display: inline-block;
+		box-shadow: #AAA 1px 1px 3px
+	}
+	.bulk{
+		display: none
+	}
+		.rangeslider,
+	.rangeslider__fill {
+		background: #e6e6e6;
+		display: block;
+		height: 10px;
+		width: 100%;
+		-webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		-moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-ms-border-radius: 5px;
+		-o-border-radius: 5px;
+		border-radius: 5px;
+	}
+	
+	.rangeslider {
+		position: relative;
+		margin-bottom: 20px;
+	}
+	
+	.rangeslider--disabled {
+		filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=40);
+		opacity: 0.4;
+	}
+	
+	.rangeslider__fill {
+		background: #3BB2D6;
+		position: absolute;
+		top: 0;
+	}
+	
+	.rangeslider__handle {
+		background: white;
+		border: 1px solid #ccc;
+		cursor: pointer;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: -5px;
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+		background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: -o-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-o-border-radius: 50%;
+		border-radius: 50%;
+	}
+	
+	.rangeslider__handle:after {
+		content: "";
+		display: block;
+		width: 9px;
+		height: 9px;
+		margin: auto;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.13)), color-stop(100%, rgba(255, 255, 255, 0)));
+		background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: -o-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-ms-border-radius: 50%;
+		-o-border-radius: 50%;
+		border-radius: 50%;
+	}
+	
+	.rangeslider__handle:active {
+		background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.12)));
+		background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: -o-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+		background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+	}
+	
+	input[type="range"]:focus+ .rangeslider .rangeslider__handle {
+		-webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+		-moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+		box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+	}
+</style>
+
+<div class="container">
+	<div class="row text-center main">
+		<h2>在线批量生成条形码工具</h2>
+		<form  action='/batch_code/' method='post' >
+		<div class="panel panel-default col-xs-12">
+			<div class="panel-body">
+				<div class="col-md-4">
+					<h4>录入条码数据 一行一条 最多120条</h4>
+					<textarea id="userInput" name="userInput" class="form-control" data-default="1234567890ABC" style="height:12em">1234567890ABC</textarea>
+				</div>
+
+				<div class="col-md-4">
+					<h4>设置条码编码</h4>
+					<select class="form-control barcode-select" multiple name="barcodeType" style="height:12em">
+						<option value="Code128Encoder" selected> Code128Encoder </option>
+					</select>
+				</div>
+				
+				<div class="col-md-4">
+					<h4>设置条码样式</h4>					
+					<div class="row">
+						<div class="col-md-3 col-xs-12  description-text">
+							<p>宽度</p>
+						</div>
+						<div class="col-md-6 col-xs-11 slider-container">
+							<input id="bar-width" name="bar_width" type="range" min="1" max="6" step="1" value="2"/>
+						</div>
+						<div class="col-md-1 col-xs-1 value-text">
+							<p><span id="bar-width-display"></span>
+							</p>
+						</div>
+					</div>
+					<!-- Height -->
+					<div class="row">
+						<div class="col-md-3 col-xs-12 description-text">
+							<p>高度</p>
+						</div>
+						<div class="col-md-6 col-xs-11 slider-container">
+							<input id="bar-height" name="bar_height" type="range" min="50" max="300" step="5" value="200"/>
+						</div>
+						<div class="col-md-1 col-xs-1 value-text">
+							<p><span id="bar-height-display"></span>
+							</p>
+						</div>
+					</div>
+					
+					<div id="font-options">							
+							<!-- Font size -->
+							<div class="row">
+								<div class="col-md-3  col-xs-12 description-text">
+									<p>字号</p>
+								</div>
+								<div class="col-md-6 col-xs-11 slider-container">
+									<input id="bar-fontSize" name="bar_fontSize" type="range" min="8" max="14" step="1" value="10"/>
+								</div>
+								<div class="col-md-1 col-xs-1 value-text">
+									<p><span id="bar-fontSize-display"></span>
+									</p>
+								</div>
+							</div>
+							<!-- Text margin -->
+							<div class="row">
+								<div class="col-md-3 col-xs-12 description-text">
+									<p>行距</p>
+								</div>
+								<div class="col-md-6 col-xs-11 slider-container">
+									<input id="bar-text-margin" name="bar_margin" type="range" min="-15" max="40" step="1" value="0"/>
+								</div>
+								<div class="col-md-1 col-xs-1 col-xs-11 value-text">
+									<p><span id="bar-text-margin-display"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+
+        <button id="submit" class="btn btn-block btn-success">开始生成条形码</button>
+        </form>
+	</div>
+</div>
+
+{% endblock %}

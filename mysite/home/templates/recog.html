@@ -1,0 +1,73 @@
+{% extends '__base__.html' %}
+{% block content %}
+<script> 
+$(document).ready(function(){
+  $("#flip").click(function(){
+    $("#panel").slideToggle("slow");
+  });
+});
+</script>
+ 
+<style type="text/css"> 
+#flip{}
+#panel{
+	display:none;
+}
+</style>
+<div id="flip" class="import btn btn-lg btn-success">使用须知</div>
+<div id="panel">
+
+<div class="col-md-12">		
+	
+	<div class="col-xs-12"  style="padding-top:15px;">
+		<p>一、请确保你上传的图片大小不超过8M，图片格式为：jpg,gif,png,bmp。<br>
+            二、要获取文档的较高质量的照片，请确保正确摆放相机的位置并遵循以下简单的建议。<br>
+● 在可能情况下尽量使用三脚架。<br>
+● 镜头位置应平行于页面的位置。应当选择相机和文档之间的距离，以便移近时，整个页面都包含在拍摄框内。在大多数情况下，此距离必须介于50到60厘米之间。<br>
+● 铺平纸质文档或书本页面（特别是在书本很厚的情况下）。文本群不能有超过20度的倾斜度，否则可能无法正确转换文本。<br>
+● 要获取更清晰的图像，请对焦于图像的中心。<br>
+● 鉴于照明较弱的情况下较长时间的曝光可能会导致图片模糊，因此，请启动防抖系统。<br>
+在以下情况下如何提高图像质量：<br>
+● 该图像太暗或其对比度太低。<br>
+解决办法：尝试使用更亮的照明。如果不能使用更亮的照明，则请调低光圈值。<br>
+● 图像不够清晰。<br>
+解决办法：在光线较弱或近距离拍摄时，自动对焦可能无法正常工作。尝试使用更亮的照明。使用三脚架和自拍器以避免在拍照时相机抖动。<br>
+如果图像只是略有模糊，请尝试使用图片编辑器中提供的图片校正工具。<br>
+● 部分图像不够清晰。<br>
+解决办法：尝试设置更高的光圈值。以比较大光学变焦从更远距离拍摄。对焦于图像中心和边缘之间的点即可。<br>
+● 闪光产生眩光。<br>
+解决办法：关闭闪光，或尝试使用其他光源并增大相机和文档之间的距离。<br> 
+		三、本工具识别准确率由图片质量而定。高质量的照片，识别准确率为100%。
+		</p>				
+	</div> 
+</div>
+</div>
+<div style="padding-left:360px;padding-top:20px;">
+
+    <form  style="display:none" action="#" method="post" enctype="multipart/form-data">
+　　		<input type="file" name="upfile" value="">
+	</form>
+	<a href="javascript:;" class="import btn btn-lg btn-success"><i class="fa fa-file-picture-o"></i> 选择上传识别文字的图片</a>
+	
+    <div style="padding-left:78px;padding-top:20px;">
+		<p1><i class="fa fa-spin fa-5x fa-spinner fa-pulse"></i></p1>
+	</div>	
+</div>
+
+
+<script>
+$("p1").hide();
+/* 选择文件自动提交 模块 */
+$('.import').click(function(){
+　　$(this).prev('form').find('[name="upfile"]').trigger('click');
+});
+/*当表单文件有变化时执行提交动作*/
+$('[name="upfile"]').change(function(){  	
+    $("p1").show();  
+   	if($(this).val()){
+　　　　$('.import').addClass('disabled' );
+　　　　$(this).parent().submit();
+　　}
+});
+</script>
+{% endblock %}
