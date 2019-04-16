@@ -59,7 +59,6 @@ def recog_img(request):
     mylist = [{"res" : res}] 
     return JsonResponse(mylist, safe = False) 
 
-#微信小程序测试用  http://localhost:8000/apidict/ 
 def apidict(request):
     mydict ={"result":[{"catid":"1","upid":"0",\
         "catname":"PhoneGap\u5e73\u53f0\u8d44\u8baf","subcate":[]},\
@@ -79,7 +78,6 @@ def apidict(request):
         "subcate":[]},{"catid":"25","upid":"0","catname":"phonegap100\u8d5e\u52a9\u89c6\u9891\u6559\u7a0b","subcate":[]},{"catid":"27","upid":"0","catname":"\u6742\u8c08","subcate":[]}]}
     return JsonResponse(mydict, safe = False) 
 
-# http://localhost:8000/apidata/ 
 def apidata(request):
     res = 'hello world !'
     if request.method == 'POST':

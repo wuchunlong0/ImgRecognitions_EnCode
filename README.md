@@ -1,6 +1,5 @@
-一键部署正常！
-ImgRecognitions_EnCode
-一、python3.5 - django1.11.5 部署正常  2019.01.31<br>
+一键部署正常！<br>
+一、python3.5 - django1.11.5  2019.01.31<br>
 二、功能：图片识别文字、在线生成条形码、二维码。<br>
 三、应用：django微信小程序后台。<br>
 四、主要技术：<br>
@@ -17,9 +16,4 @@ ImgRecognitions_EnCode
 六、存在问题<br>
 1、批量生成条形码，输入框第二行内容也预览了。正确：应该只预览第一行内容。<br>
 2、QR_code.html中，qrcode16.js文件，在线使用和下载到本地使用，
-script src="https://static.gaitubao.net/js/qrcode16.js">/script> 不支持浏览器：Firefox
-script src="/static/prettify/js/qrcode16.js">/script>   不知为什么？<br>
-
-提供的API函数：
-http://localhost:8000/apidata/ 
-http://localhost:8000/apidict/
+script src="https://static.gaitubao.net/js/qrcode16.js">/script> 不支持浏览器：Firefox script src="/static/prettify/js/qrcode16.js">/script>   不知为什么？<br>
