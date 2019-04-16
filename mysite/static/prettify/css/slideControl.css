@@ -1,0 +1,65 @@
+.slideControlContainer {
+	height:10px; 
+	background: #efefef; 
+	background: -moz-linear-gradient(top, #efefef 0%, #ffffff 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efefef), color-stop(100%,#ffffff)); 
+	background: -o-linear-gradient(top, #efefef 0%,#ffffff 100%); 
+	background: -ms-linear-gradient(top, #efefef 0%,#ffffff 100%); 
+	border:1px solid #ccc; box-shadow:inset 0 1px 0 #fff;
+	border-radius:7px;
+	cursor:pointer;
+	width:340px;
+	float:left;
+	margin:15px 10px 0 0;
+}
+
+/*进度条*/
+.slideControlFill {
+	background: #ea5507; 
+	background: -moz-linear-gradient(top, #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feccb1), color-stop(50%,#f17432), color-stop(51%,#ea5507), color-stop(100%,#fb955e)); 
+	background: -webkit-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); 
+	background: -o-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); 
+	background: -ms-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); 
+	display:block;
+	height:100%;
+	border-radius:7px;
+	box-shadow:inset 0 1px 0 #F9D7C5; //#3ACC3A; 
+	position:relative;
+	z-index:1;
+	overflow:visible !important;
+}
+
+/*圆点*/
+.slideControlHandle {
+	display:block; 
+	background: #ea5507; 
+	background: -moz-linear-gradient(top, #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feccb1), color-stop(50%,#f17432), color-stop(51%,#ea5507), color-stop(100%,#fb955e)); 
+	background: -webkit-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+	background: -o-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); 
+	background: -ms-linear-gradient(top, #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%); 
+	border-radius:15px;
+	border:5px solid #fff;
+	width:10px;
+	height:10px;
+	box-shadow:0 0 1px #555;
+	position:absolute;
+	right:0;
+	top:-2px;
+	z-index:5;
+	cursor:pointer;
+}
+
+}
+	
+.slideControlInput {
+	width:35px;
+	font-size:1.5em;
+	padding:3px 5px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	text-align:center;
+	color:#333;
+	font-weight:bold;
+}
